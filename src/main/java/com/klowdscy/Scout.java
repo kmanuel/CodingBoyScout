@@ -21,4 +21,9 @@ public class Scout {
     private long id;
     private String name;
     private long points;
+
+    public Scout(String name, long points) {
+        this.name = name;
+        this.points = points;
+    }
 }
