@@ -1,5 +1,10 @@
-package com.klowdscy;
+package com.klowdscy.service;
 
+import com.klowdscy.CodingBoyScoutApplication;
+import com.klowdscy.dao.ScoutDao;
+import com.klowdscy.domain.Scout;
+import com.klowdscy.exception.UnknownScoutException;
+import com.klowdscy.service.ScoutService;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

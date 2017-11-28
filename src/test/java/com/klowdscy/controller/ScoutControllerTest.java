@@ -1,5 +1,8 @@
-package com.klowdscy;
+package com.klowdscy.controller;
 
+import com.klowdscy.controller.ScoutController;
+import com.klowdscy.dao.ScoutDao;
+import com.klowdscy.domain.Scout;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -19,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
+ * WebMvcTest for ScoutController
  * Created by manuel on 26.11.17.
  */
 @RunWith(SpringRunner.class)

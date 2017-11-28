@@ -1,5 +1,7 @@
-package com.klowdscy;
+package com.klowdscy.controller;
 
+import com.klowdscy.dao.ScoutDao;
+import com.klowdscy.domain.Scout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

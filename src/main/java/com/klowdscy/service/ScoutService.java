@@ -1,8 +1,12 @@
-package com.klowdscy;
+package com.klowdscy.service;
 
+import com.klowdscy.exception.UnknownScoutException;
+import com.klowdscy.dao.ScoutDao;
+import com.klowdscy.domain.Scout;
 import org.springframework.stereotype.Service;
 
 /**
+ * Service for handling of Scouts
  * Created by manuel on 26.11.17.
  */
 @Service
@@ -16,7 +20,7 @@ public class ScoutService {
 
     public void addToScore(long scoutId, long additionalScore) throws UnknownScoutException {
         if (!scoutDao.exists(scoutId)) {
-            throw new UnknownScoutException("no scout found for id=" + scoutId);
+            throw new UnknownScoutException(scoutId);
         }
         Scout scout = scoutDao.findOne(scoutId);
         scout.setPoints(scout.getPoints() + additionalScore);
@@ -25,7 +29,7 @@ public class ScoutService {
 
     public long getScoreFor(long scoutId) throws UnknownScoutException {
         if (!scoutDao.exists(scoutId)) {
-            throw new UnknownScoutException("no scout found for id=" + scoutId);
+            throw new UnknownScoutException(scoutId);
         }
         return scoutDao.findOne(scoutId).getPoints();
     }

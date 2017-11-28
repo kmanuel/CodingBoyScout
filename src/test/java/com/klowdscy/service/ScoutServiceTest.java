@@ -1,5 +1,9 @@
-package com.klowdscy;
+package com.klowdscy.service;
 
+import com.klowdscy.dao.ScoutDao;
+import com.klowdscy.domain.Scout;
+import com.klowdscy.exception.UnknownScoutException;
+import com.klowdscy.service.ScoutService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package com.klowdscy;
+package com.klowdscy.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
