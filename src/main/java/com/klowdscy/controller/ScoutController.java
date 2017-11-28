@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 /**
+ * Controller For Scouts
  * Created by manuel on 26.11.17.
  */
 @Controller

@@ -1,6 +1,5 @@
 package com.klowdscy.controller;
 
-import com.klowdscy.controller.ScoutController;
 import com.klowdscy.dao.ScoutDao;
 import com.klowdscy.domain.Scout;
 import org.junit.Test;
@@ -33,7 +32,7 @@ public class ScoutControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    ScoutDao scoutDao;
+    private ScoutDao scoutDao;
 
     @Test
     public void testListReturnsListView() throws Exception {

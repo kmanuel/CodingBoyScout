@@ -2,8 +2,6 @@ package com.klowdscy.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.klowdscy.api.ScoreDto;
-import com.klowdscy.api.ScoutRestController;
 import com.klowdscy.service.ScoutService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

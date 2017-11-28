@@ -1,6 +1,5 @@
 package com.klowdscy.dao;
 
-import com.klowdscy.dao.ScoutDao;
 import com.klowdscy.domain.Scout;
 import org.junit.Before;
 import org.junit.Test;
