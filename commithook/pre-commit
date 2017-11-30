@@ -1,0 +1,36 @@
+#!/bin/sh
+
+FILES_TO_CHECK=`git diff --name-only --cached`
+
+WARNINGS_AFTER=`java -jar /home/manuel/development/checkstyle/checkstyle-8.4-all.jar -c /home/manuel/development/checkstyle/custom_google_checks.xml $FILES_TO_CHECK | wc -l`
+
+STASH_SIZE_BEFORE=`git stash list | wc -l`
+git stash > /dev/null
+STASH_SIZE_AFTER=`git stash list | wc -l`
+
+STASH_DIFF=$((STASH_SIZE_AFTER - STASH_SIZE_BEFORE))
+
+
+WARNINGS_BEFORE=`java -jar $CHECKSTYLE_HOME/checkstyle-8.4-all.jar -c $CHECKSTYLE_HOME/custom_google_checks.xml $FILES_TO_CHECK | wc -l`
+
+WARNING_DIFF=$((WARNINGS_AFTER - WARNINGS_BEFORE))
+
+
+
+if [ $STASH_DIFF -gt 0 ]
+then
+    git stash pop > /dev/null
+else
+    exit 0
+fi
+
+
+
+if [ $WARNING_DIFF -gt 0 ]
+then
+    echo "oh noes this would add $WARNING_DIFF new warnings"
+    java -jar $CHECKSTYLE_HOME/checkstyle-8.4-all.jar -c $CHECKSTYLE_HOME/custom_google_checks.xml ./ | wc -l
+    exit 1
+else
+    echo "`git log --oneline | head -n1 | cut -d ' ' -f1` $WARNING_DIFF" >> commit_warnings
+fi
