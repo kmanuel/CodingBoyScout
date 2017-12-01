@@ -10,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Optional;
+
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,14 +31,21 @@ public class ScoutServiceTest {
     @Test
     public void testIncreaseScoreIncreasesScore() throws UnknownScoutException {
         Scout testScout = new Scout(1L, "scout1", 1);
-        when(scoutDao.exists(1L)).thenReturn(true);
-        when(scoutDao.findOne(1L)).thenReturn(testScout);
+        when(scoutDao.findOneByName("scout1")).thenReturn(Optional.of(testScout));
 
-        scoutService.addToScore(1L, 2);
+        scoutService.addToScore("scout1", 2);
 
-        verify(scoutDao).findOne(1L);
+        verify(scoutDao).findOneByName("scout1");
         testScout.setPoints(3);
         verify(scoutDao).save(testScout);
+    }
+
+    @Test
+    public void testCreatesNewScoutWhenNoneFound() {
+        when(scoutDao.findOneByName("scout1")).thenReturn(Optional.empty());
+
+        scoutService.addToScore("scout1", 3);
+        verify(scoutDao).save(any(Scout.class));
     }
 
 }

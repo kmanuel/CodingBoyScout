@@ -4,7 +4,6 @@ import com.klowdscy.CodingBoyScoutApplication;
 import com.klowdscy.dao.ScoutDao;
 import com.klowdscy.domain.Scout;
 import com.klowdscy.exception.UnknownScoutException;
-import com.klowdscy.service.ScoutService;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -14,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -43,7 +43,7 @@ public class ScoutServiceIntTest {
         Scout scout = new Scout("scout1", 1);
         scoutDao.saveAndFlush(scout);
         // when
-        scoutService.addToScore(scout.getId(), 12);
+        scoutService.addToScore(scout.getName(), 12);
         // then
         assertThat(
                 scoutDao.findOne(scout.getId()).getPoints(),
@@ -51,10 +51,25 @@ public class ScoutServiceIntTest {
     }
 
     @Test
-    public void givenNonExistingScout_whenAddPoints_thenUnknownScoutException()
+    public void givenNonExistingScout_whenAddPoints_thenScoutCreated()
             throws UnknownScoutException {
-        expectedException.expect(UnknownScoutException.class);
-        scoutService.addToScore(Long.MAX_VALUE, 13);
+        // when
+        scoutService.addToScore("newScout", 13);
+        // then
+        Optional<Scout> createdScout = scoutDao.findOneByName("newScout");
+        assertThat(
+                createdScout.isPresent(),
+                is(true));
+        assertThat(
+                createdScout
+                        .map(Scout::getName)
+                        .orElse(""),
+                is("newScout"));
+        assertThat(
+                createdScout
+                        .map(Scout::getPoints)
+                        .orElse(-1L),
+                is(13L));
     }
 
     @Test
@@ -65,7 +80,7 @@ public class ScoutServiceIntTest {
         scoutDao.saveAndFlush(scout);
         // when then
         assertThat(
-                scoutService.getScoreFor(scout.getId()),
+                scoutService.getScoreFor(scout.getName()),
                 is(1L));
     }
 
@@ -73,7 +88,7 @@ public class ScoutServiceIntTest {
     public void givenInvalidScout_whenGetScoreFor_thenUnknownScoutException()
             throws UnknownScoutException {
         expectedException.expect(UnknownScoutException.class);
-        scoutService.getScoreFor(34593);
+        scoutService.getScoreFor("randomName");
     }
 
 }

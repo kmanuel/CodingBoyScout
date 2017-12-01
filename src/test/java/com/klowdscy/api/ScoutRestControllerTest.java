@@ -37,7 +37,7 @@ public class ScoutRestControllerTest {
 
     @Test
     public void testIncreaseScoreByZero_returnsBadRequest() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PREFIX + "{scoutId}/score", 1L)
+        mockMvc.perform(post(CONTROLLER_PREFIX + "{scoutName}/score", "test_scout")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(scoreDtoJson(0)))
             .andExpect(status().isBadRequest());
@@ -46,12 +46,12 @@ public class ScoutRestControllerTest {
     @Test
     public void testIncreaseScoreByOne_increasesScore() throws Exception {
         mockMvc.perform(
-                post(CONTROLLER_PREFIX + "{scoutId}/score", 1L)
+                post(CONTROLLER_PREFIX + "{scoutName}/score", "test_scout")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(scoreDtoJson(3)))
                 .andExpect(status().isOk());
 
-        verify(scoutService).addToScore(1L, 3);
+        verify(scoutService).addToScore("test_scout", 3);
     }
 
     private String scoreDtoJson(int score) throws JsonProcessingException {

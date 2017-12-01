@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -36,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {CodingBoyScoutApplication.class})
 @WebAppConfiguration
+@Transactional
 public class ScoutRestControllerIntTest {
 
     @Autowired
@@ -73,36 +75,43 @@ public class ScoutRestControllerIntTest {
     }
 
     @Test
-    public void givenUnknownUserId_whenAddToScore_thenBadRequest() throws Exception {
+    public void givenUnknownScout_whenAddToScore_thenBadRequest() throws Exception {
         mockMvc.perform(
-                get("/api/v1/scout/{scoutId}/score", 9999L))
+                get("/api/v1/scout/{scoutName}/score", 9999L))
                 .andExpect(
                         status().isBadRequest());
     }
 
     @Test
-    public void givenScoutId_whenGetScore_thenScoreReturned() throws Exception {
+    public void givenScoutName_whenGetScore_thenScoreReturned() throws Exception {
         Scout scout = scoutDao.save(new Scout("scout", 1337));
 
         mockMvc.perform(
-                get("/api/v1/scout/{scoutId}/score", scout.getId()))
+                get("/api/v1/scout/{scoutName}/score", scout.getName()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(1337)));
     }
 
     @Test
+    public void givenUnknownScoutName_whenGetScore_thenNotFound() throws Exception {
+        mockMvc.perform(
+                get("/api/v1/scout/{scoutName}/score", "someName"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void givenValidScoreUpdateAndScout_whenAddToScore_thenScoreUpdated() throws Exception {
-        long scoutId = scoutDao.save(new Scout("scout", 7)).getId();
+        String scoutName = scoutDao.save(new Scout("scout", 7)).getName();
 
         mockMvc.perform(
-                post("/api/v1/scout/{scoutId}/score", scoutId)
+                post("/api/v1/scout/{scoutName}/score", scoutName)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json(new ScoreDto(3))))
                 .andExpect(
                         status().isOk());
 
         mockMvc.perform(
-                get("/api/v1/scout/{scoutId}/score", scoutId))
+                get("/api/v1/scout/{scoutName}/score", scoutName))
                 .andExpect(
                         status().isOk())
                 .andExpect(
@@ -112,10 +121,10 @@ public class ScoutRestControllerIntTest {
 
     @Test
     public void givenZeroScore_whenAddToScore_thenBadRequest() throws Exception {
-        long scoutId = scoutDao.save(new Scout("scout", 7)).getId();
+        String scoutName = scoutDao.save(new Scout("scout", 7)).getName();
 
         mockMvc.perform(
-                post("/api/v1/scout/{scoutId}/score", scoutId)
+                post("/api/v1/scout/{scoutName}/score", scoutName)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json(new ScoreDto(0))))
                 .andExpect(

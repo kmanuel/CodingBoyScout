@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "No such scout")
 public class UnknownScoutException extends RuntimeException {
-    public UnknownScoutException(long id) {
-        super("could not find scout for id='" + id + "'");
+    public UnknownScoutException(String scoutName) {
+        super("could not find scout for name='" + scoutName + "'");
     }
 }

@@ -22,14 +22,14 @@ public class ScoutRestController {
         this.scoutService = scoutService;
     }
 
-    @GetMapping("/{scoutId}/score")
-    public long getScoutScore(@PathVariable long scoutId) throws UnknownScoutException {
-        return this.scoutService.getScoreFor(scoutId);
+    @GetMapping("/{scoutName}/score")
+    public long getScoutScore(@PathVariable String scoutName) throws UnknownScoutException {
+        return this.scoutService.getScoreFor(scoutName);
     }
 
-    @PostMapping("{scoutId}/score")
-    public void addToScore(@PathVariable long scoutId,
-                           @Valid @RequestBody ScoreDto scoreDto) throws UnknownScoutException {
-        this.scoutService.addToScore(scoutId, scoreDto.getScore());
+    @PostMapping("{scoutName}/score")
+    public void addtoScore(@PathVariable String scoutName,
+                           @Valid @RequestBody ScoreDto scoreDto) {
+        this.scoutService.addToScore(scoutName, scoreDto.getScore());
     }
 }
