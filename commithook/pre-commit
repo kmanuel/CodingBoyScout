@@ -1,5 +1,7 @@
 #!/bin/sh
 
+CODING_BOYSCOUT_MODE="local"
+
 FILES_TO_CHECK=`git diff --name-only --cached`
 
 WARNINGS_AFTER=`java -jar /home/manuel/development/checkstyle/checkstyle-8.4-all.jar -c /home/manuel/development/checkstyle/custom_google_checks.xml $FILES_TO_CHECK | wc -l`
@@ -32,5 +34,12 @@ then
     java -jar $CHECKSTYLE_HOME/checkstyle-8.4-all.jar -c $CHECKSTYLE_HOME/custom_google_checks.xml ./ | wc -l
     exit 1
 else
-    echo "`git log --oneline | head -n1 | cut -d ' ' -f1` $WARNING_DIFF" >> commit_warnings
+    if [ $CODING_BOYSCOUT_MODE = "local" ]
+    then
+        echo "`git log --oneline | head -n1 | cut -d ' ' -f1` $WARNING_DIFF" >> commit_warnings
+    else
+        SCOUT_NAME=`git config user.name`
+        SCOUT_NAME=${SCOUT_NAME// /_}
+        curl -d "warningDiff=$WARNING_DIFF" -X POST http://localhost:19283/scout/$SCOUT_NAME/score
+    fi
 fi
