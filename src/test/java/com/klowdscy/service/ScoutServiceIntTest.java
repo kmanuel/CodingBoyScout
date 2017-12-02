@@ -1,11 +1,13 @@
 package com.klowdscy.service;
 
 import com.klowdscy.CodingBoyScoutApplication;
+import com.klowdscy.testcategories.IntegrationTest;
 import com.klowdscy.dao.ScoutDao;
 import com.klowdscy.domain.Scout;
 import com.klowdscy.exception.UnknownScoutException;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {CodingBoyScoutApplication.class})
 @Transactional
+@Category(IntegrationTest.class)
 public class ScoutServiceIntTest {
 
     @Autowired

@@ -1,6 +1,8 @@
 package com.klowdscy;
 
+import com.klowdscy.testcategories.IntegrationTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {CodingBoyScoutApplication.class})
 @WebAppConfiguration
+@Category(IntegrationTest.class)
 public class CodingBoyScoutApplicationIntTest {
 
 	@Autowired

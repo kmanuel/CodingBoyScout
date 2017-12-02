@@ -2,11 +2,13 @@ package com.klowdscy.controller;
 
 import com.klowdscy.dao.ScoutDao;
 import com.klowdscy.domain.Scout;
+import com.klowdscy.testcategories.SeleniumTest;
 import org.hamcrest.core.IsCollectionContaining;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -38,6 +40,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
+@Category(SeleniumTest.class)
 public class ScoutControllerSeleniumTest {
 
     @LocalServerPort

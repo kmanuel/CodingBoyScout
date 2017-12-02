@@ -1,10 +1,12 @@
 package com.klowdscy.api;
 
 import com.klowdscy.CodingBoyScoutApplication;
+import com.klowdscy.testcategories.IntegrationTest;
 import com.klowdscy.dao.ScoutDao;
 import com.klowdscy.domain.Scout;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -38,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {CodingBoyScoutApplication.class})
 @WebAppConfiguration
 @Transactional
+@Category(IntegrationTest.class)
 public class ScoutRestControllerIntTest {
 
     @Autowired
