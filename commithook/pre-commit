@@ -1,10 +1,28 @@
 #!/bin/sh
 
 CODING_BOYSCOUT_MODE="local"
+LOGGING=0
+
+if [ $LOGGING -gt 0 ]
+then
+	echo "runnig in $CODING_BOYSCOUT_MODE mode"
+fi
 
 FILES_TO_CHECK=`git diff --name-only --cached`
 
-WARNINGS_AFTER=`java -jar $CHECKSTYLE_JAR -c CHECKSTYLE_FILE $FILES_TO_CHECK | wc -l`
+if [ $LOGGING -gt 0 ]
+then
+	echo "checking files $FILES_TO_CHECK"
+fi
+
+
+WARNINGS_AFTER=`java -jar $CHECKSTYLE_JAR -c $CHECKSTYLE_FILE $FILES_TO_CHECK | wc -l`
+
+
+if [ $LOGGING -gt 0 ]
+then
+	echo "warnings if we commit this $WARNINGS_AFTER"
+fi
 
 STASH_SIZE_BEFORE=`git stash list | wc -l`
 git stash > /dev/null
@@ -13,25 +31,39 @@ STASH_SIZE_AFTER=`git stash list | wc -l`
 STASH_DIFF=$((STASH_SIZE_AFTER - STASH_SIZE_BEFORE))
 
 
-WARNINGS_BEFORE=`java -jar $CHECKSTYLE_JAR -c CHECKSTYLE_FILE $FILES_TO_CHECK | wc -l`
-
+WARNINGS_BEFORE=`java -jar $CHECKSTYLE_JAR -c $CHECKSTYLE_FILE $FILES_TO_CHECK | wc -l`
 WARNING_DIFF=$((WARNINGS_AFTER - WARNINGS_BEFORE))
 
 
 
+if [ $LOGGING -gt 0 ]
+then
+	echo "difference in warnings is $WARNING_DIFF"
+fi
+
+
 if [ $STASH_DIFF -gt 0 ]
 then
+	if [ $LOGGING -gt 0 ]
+	then
+	    echo "finished comparison unstash"
+	fi
     git stash pop > /dev/null
+    git add $FILES_TO_CHECK > /dev/null
 else
+    echo "nothing was stashed exit"
     exit 0
 fi
+
+
+
 
 
 
 if [ $WARNING_DIFF -gt 0 ]
 then
     echo "oh noes this would add $WARNING_DIFF new warnings"
-    java -jar $CHECKSTYLE_JAR -c CHECKSTYLE_FILE ./ | wc -l
+    java -jar $CHECKSTYLE_JAR -c $CHECKSTYLE_FILE ./
     exit 1
 else
     if [ $CODING_BOYSCOUT_MODE = "local" ]
