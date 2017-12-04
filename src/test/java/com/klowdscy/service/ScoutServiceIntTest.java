@@ -20,10 +20,6 @@ import java.util.Optional;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-/**
- * Integration Test for ScoutService
- * Created by manuel on 27.11.17.
- */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {CodingBoyScoutApplication.class})
 @Transactional

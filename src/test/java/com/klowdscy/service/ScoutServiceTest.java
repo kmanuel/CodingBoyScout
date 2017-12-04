@@ -16,9 +16,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by manuel on 26.11.17.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class ScoutServiceTest {
 

@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-/**
- * REST Controller for Scout handling
- * Created by manuel on 26.11.17.
- */
 @RestController
 @RequestMapping("/api/v1/scout")
 public class ScoutRestController {

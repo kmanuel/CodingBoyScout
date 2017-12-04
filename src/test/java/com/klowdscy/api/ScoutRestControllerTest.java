@@ -16,10 +16,6 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * ScoutRestController Mvc Tests
- * Created by manuel on 26.11.17.
- */
 @RunWith(SpringRunner.class)
 @WebMvcTest(ScoutRestController.class)
 public class ScoutRestControllerTest {

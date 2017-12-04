@@ -20,10 +20,6 @@ import static org.hamcrest.Matchers.empty;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * WebMvcTest for ScoutController
- * Created by manuel on 26.11.17.
- */
 @RunWith(SpringRunner.class)
 @WebMvcTest(ScoutController.class)
 public class ScoutControllerTest {

@@ -13,10 +13,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-/**
- * ScoutDao Integration Tests
- * Created by manuel on 27.11.17.
- */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Transactional

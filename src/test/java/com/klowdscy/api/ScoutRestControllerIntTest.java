@@ -32,10 +32,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Integration Test for ScoutRestController
- * Created by manuel on 27.11.17.
- */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {CodingBoyScoutApplication.class})
 @WebAppConfiguration

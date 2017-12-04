@@ -8,10 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * Domain class representing Users known as 'Scouts'
- * Created by manuel on 26.11.17.
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
