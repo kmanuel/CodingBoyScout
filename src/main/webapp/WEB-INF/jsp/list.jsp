@@ -5,6 +5,8 @@
 <html>
 <head>
     <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/resources/css/style.css" rel="stylesheet"/>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>Scouts</title>
