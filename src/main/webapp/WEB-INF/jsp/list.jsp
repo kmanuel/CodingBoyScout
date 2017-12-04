@@ -12,12 +12,12 @@
     <title>Scouts</title>
 </head>
 <body>
-<div class="container">
 
-    <div class="row">
-        <h1 class="text-center">Scouts</h1>
-    </div>
+<div>
+    <%@include file='../templates/header.html' %>
+</div>
 
+<div class="container content-container">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
             <c:if test="${not empty scouts}">
@@ -47,6 +47,10 @@
             </c:if>
         </div>
     </div>
+</div>
+
+<div>
+    <%@include file='../templates/footer.html' %>
 </div>
 
 <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
