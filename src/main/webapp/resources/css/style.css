@@ -1,0 +1,34 @@
+body {
+    background-color: lightgreen;
+}
+
+#header {
+    background-color: darkgreen;
+    position: relative;
+    margin: 0;
+    width: 100%;
+    top: 0;
+    height: 10vh;
+}
+
+.content-container {
+    border: 1px solid black;
+    border-radius: 5px;
+
+    margin-top: 1vh;
+    background-color: green;
+
+    height: 83vh;
+    margin-bottom: 1vh;
+}
+
+#footer {
+    background-color: darkgreen;
+    position: absolute;
+    margin: 0;
+    left: 0;
+    width: 100vw;
+
+    bottom: 0;
+    height: 5vh;
+}
