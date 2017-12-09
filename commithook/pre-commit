@@ -9,18 +9,17 @@ generate_post_data()
 EOF
 }
 
-LOGGING=0
+CODING_BOYSCOUT_LOGGING=${CODING_BOYSCOUT_LOGGING:=0}
+CODING_BOYSCOUT_MODE=${CODING_BOYSCOUT_MODE:='local'}
 
-CODING_BOYSCOUT_MODE=${CODING_BOYSCOUT_MODE:='remote'}
-
-if [ $LOGGING -gt 0 ]
+if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
 then
 	echo "runnig in $CODING_BOYSCOUT_MODE mode"
 fi
 
 FILES_TO_CHECK=`git diff --name-only --cached`
 
-if [ $LOGGING -gt 0 ]
+if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
 then
 	echo "checking files $FILES_TO_CHECK"
 fi
@@ -29,7 +28,7 @@ fi
 WARNINGS_AFTER=`java -jar $CHECKSTYLE_JAR -c $CHECKSTYLE_FILE $FILES_TO_CHECK | wc -l`
 
 
-if [ $LOGGING -gt 0 ]
+if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
 then
 	echo "warnings if we commit this $WARNINGS_AFTER"
 fi
@@ -46,7 +45,7 @@ WARNING_DIFF=$((WARNINGS_AFTER - WARNINGS_BEFORE))
 
 
 
-if [ $LOGGING -gt 0 ]
+if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
 then
 	echo "difference in warnings is $WARNING_DIFF"
 fi
@@ -54,7 +53,7 @@ fi
 
 if [ $STASH_DIFF -gt 0 ]
 then
-	if [ $LOGGING -gt 0 ]
+	if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
 	then
 	    echo "finished comparison unstash"
 	fi
@@ -81,7 +80,7 @@ else
 
         if [ $CODING_BOYSCOUT_MODE = 'local' ]
         then
-            if [ $LOGGING -gt 0 ]
+            if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
             then
             	echo "writing to commit_warnings file"
             fi
@@ -94,7 +93,7 @@ else
             POST_ADDR="$SERVER_ADDR/api/v1/scout/$SCOUT_NAME/score"
             POST_BODY="{\"score\": $WARNING_DIFF}"
 
-            if [ $LOGGING -gt 0 ]
+            if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
             then
                 echo "messaging server $POST_ADDR with body $POST_BODY"
             fi
@@ -103,7 +102,7 @@ else
 
             curl -H "Content-Type: application/json" -d "$(generate_post_data)" $POST_ADDR
 
-            if [ $LOGGING -gt 0 ]
+            if [ $CODING_BOYSCOUT_LOGGING -gt 0 ]
             then
                 echo "messaged server"
             fi
