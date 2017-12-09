@@ -1,7 +1,7 @@
 # CodingBoyScout
 
-#About
-The Boy Scout Rule can be summarized as: Leave your code better than you found it. Boy Scouts have a rule regarding camping, that they should leave the campground cleaner than they found it.
+## About
+>Leave your code better than you found it. Boy Scouts have a rule regarding camping, that they should leave the campground cleaner than they found it.
 
 This repository contains a pre-commit hook that utilizes checkstyle to determine the amount of added/removed warnings in a commit.
 
@@ -33,22 +33,31 @@ The hooks requires
 #### Setup common to Local and Server Mode
 And the following two environment variables to be set
 
-- CHECKSTYLE_JAR - location of the checkstyle.jar to use
-- CHECKSTYLE_FILE -  location of the checkstyle.xml to use
+* **CHECKSTYLE_JAR** - location of the checkstyle.jar to use
+* **CHECKSTYLE_FILE** -  location of the checkstyle.xml to use
 
 
-In order to use the hook in your git project you have to copy the <em>pre-commit</em> file from the <em>commithook</em> directory  
+In order to use the hook in your git project you have to copy the _pre-commit_ file from the _commithook_ directory  
 
-
-into 
-
-<em>.git/hooks/<em>
-
+into   
+_.git/hooks/_  
 of the git project you want to use the hook with.
 
+#### Setup for Server Mode
+**./mvnw spring-boot:run** starts the server listening locally on port **19283**.  
+After starting the server a list of all Scouts and the amount of eliminated warnings for each can be views at
+[localhost:19283](localhost:19283) 
 
-#### Additional Setup for Server Mode
-TBD
+
+#### Optional Configuration
+
+* CODING_BOYSCOUT_LOGGING
+    * 0 for no-logging (default) 
+    * 1 enable logging
+* CODING_BOYSCOUT_MODE
+    * 'local' to save eliminated warnings to local file
+    * 'server' to save them to a server 
+
 
 
 ## Built With
