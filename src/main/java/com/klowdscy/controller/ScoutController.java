@@ -21,7 +21,7 @@ public class ScoutController {
 
     @GetMapping("/")
     public String listScouts(Model model) {
-        List<Scout> scouts = scoutDao.findAll();
+        List<Scout> scouts = scoutDao.findAllOrderByPointsDesc();
         model.addAttribute("scouts", scouts);
         return "list";
     }
